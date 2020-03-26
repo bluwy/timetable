@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div v-if="currentSchedule">
     <div class="flex text-sm opacity-75">
-      <div class="flex-grow">{{ schedule.teacher }}</div>
+      <div class="flex-grow">{{ currentSchedule.teacher }}</div>
       <div class="flex-shrink">
-        {{ schedule.location }}
+        {{ currentSchedule.location }}
       </div>
     </div>
     <div class="text-5xl text-center leading-none my-5">
-      {{ schedule.name }}
+      {{ currentSchedule.name }}
     </div>
     <div class="text-center">
       <div class="inline-block">
@@ -27,26 +27,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { formatTime } from '@/util'
+
 export default {
   name: 'CurrentSchedule',
-  props: {
-    schedule: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
+    ...mapGetters(['currentSchedule']),
     startTime() {
-      const hour = this.schedule.startHour.toString().padStart('2', '0')
-      const minute = this.schedule.startMinute.toString().padStart('2', '0')
-
-      return hour + ':' + minute
+      return this.currentSchedule
+        ? formatTime(
+            this.currentSchedule.startHour,
+            this.currentSchedule.startMinute
+          )
+        : ''
     },
     endTime() {
-      const hour = this.schedule.endHour.toString().padStart('2', '0')
-      const minute = this.schedule.endMinute.toString().padStart('2', '0')
-
-      return hour + ':' + minute
+      return this.currentSchedule
+        ? formatTime(
+            this.currentSchedule.endHour,
+            this.currentSchedule.endMinute
+          )
+        : ''
     }
   }
 }

@@ -57,3 +57,10 @@ export function hexToRgb(hex) {
 
   return { r, g, b }
 }
+
+export function formatTime(hour, minute) {
+  const formatHour = hour.toString().padStart('2', '0')
+  const formatMinute = minute.toString().padStart('2', '0')
+
+  return formatHour + ':' + formatMinute
+}

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { isColorDark } from '@/util'
 
 /**
  * @typedef {object} Schedule
@@ -18,10 +19,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentDate: new Date(),
+    defaultColor: '#123456',
     /** @type {Schedule[]} */
     schedules: []
   },
   mutations: {
+    RESET_DATE(state) {
+      // Triggers re-calculations
+      state.currentDate = new Date()
+    },
     ADD_SCHEDULE(state, { schedule }) {
       state.schedules.push(schedule)
     },
@@ -33,6 +40,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    resetDate({ commit }) {
+      commit('RESET_DATE')
+    },
     addSchedule({ commit }, { schedule }) {
       commit('ADD_SCHEDULE', { schedule })
     },
@@ -44,6 +54,26 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    currentSchedule(state, getters) {
+      const day = state.currentDate.getDay()
+      const hour = state.currentDate.getHours()
+      const minute = state.currentDate.getMinutes()
+
+      return getters.findSchedule(day, hour, minute)
+    },
+    nextSchedule(state, getters) {
+      const day = state.currentDate.getDay()
+      const hour = state.currentDate.getHours()
+      const minute = state.currentDate.getMinutes()
+
+      return getters.findNextSchedule(day, hour, minute)
+    },
+    currentColor(state, getters) {
+      return getters.currentSchedule?.color ?? state.defaultColor
+    },
+    isCurrentColorDark(state, getters) {
+      return isColorDark(getters.currentColor)
+    },
     /** Finds a schedule for a time */
     findSchedule: state => (day, hour, minute) => {
       return state.schedules.find(schedule => {
