@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Settings from '@/views/Settings.vue'
+import Schedules from '@/views/Schedules.vue'
 
 Vue.use(VueRouter)
 
@@ -15,9 +15,9 @@ const router = new VueRouter({
       component: Home
     },
     {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
+      path: '/schedules',
+      name: 'Schedules',
+      component: Schedules
     }
   ]
 })

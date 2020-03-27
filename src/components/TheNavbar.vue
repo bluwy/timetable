@@ -5,11 +5,14 @@
         <router-link class="p-3" to="/settings">
           <fa-icon :icon="['fas', 'cog']" />
         </router-link>
+        <router-link class="p-3" to="/schedules">
+          <fa-icon :icon="['fas', 'calendar-alt']" />
+        </router-link>
         <router-link class="p-3" to="/help">
           <fa-icon :icon="['fas', 'question']" />
         </router-link>
       </template>
-      <template v-if="$route.name === 'Settings' || $route.name === 'Help'">
+      <template v-else>
         <router-link class="p-3" to="/">
           <fa-icon :icon="['fas', 'times']" />
         </router-link>

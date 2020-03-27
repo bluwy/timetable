@@ -8,7 +8,7 @@
 import ScheduleList from '@/components/ScheduleList.vue'
 
 export default {
-  name: 'Settings',
+  name: 'Schedules',
   components: {
     ScheduleList
   }
