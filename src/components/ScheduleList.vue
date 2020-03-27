@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div v-for="group in groupedSchedules" :key="group.groupName">
-      <div class="text-3xl font-light my-3">{{ group.groupName }}</div>
-      <div class="flex">
-        <ScheduleListItem
+    <div v-for="group in groupedSchedules" :key="group.groupName" class="mb-8">
+      <div class="text-2xl font-light my-3">{{ group.groupName }}</div>
+      <div class="flex flex-wrap -mx-2">
+        <div
           v-for="schedule in group.schedules"
           :key="getScheduleKey(schedule)"
-          class="w-full md:w-1/2 lg:w-1/3"
-          :schedule="schedule"
-        />
+          class="px-2 mb-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+        >
+          <ScheduleListItem class="h-full" :schedule="schedule" />
+        </div>
       </div>
     </div>
   </div>
@@ -18,18 +19,16 @@
 import { mapGetters } from 'vuex'
 import ScheduleListItem from '@/components/ScheduleListItem.vue'
 
-const dayNames = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-
 function defaultGroupSchedule() {
-  return dayNames.map(v => ({
+  return [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ].map(v => ({
     groupName: v,
     schedules: []
   }))
@@ -60,12 +59,6 @@ export default {
         schedule.endHour +
         schedule.endMinute
       )
-    },
-    dayToName(day) {
-      return dayNames[day]
-    },
-    daySchedules(day) {
-      return this.sortedSchedules.filter(v => v.day === day)
     }
   }
 }

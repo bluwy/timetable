@@ -2,10 +2,7 @@
   <div
     id="app"
     class="h-screen"
-    :class="{
-      'text-white': isCurrentColorDark,
-      'text-black': !isCurrentColorDark
-    }"
+    :class="isCurrentColorDark ? 'text-white' : 'text-black'"
     :style="{
       background: `linear-gradient(270deg, ${currentColor}, ${currentTintColor})`
     }"
