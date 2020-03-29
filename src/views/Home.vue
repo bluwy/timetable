@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center h-full">
+  <div class="flex justify-center items-center h-screen">
     <CurrentSchedule class="max-w-md" />
   </div>
 </template>

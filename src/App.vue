@@ -1,10 +1,10 @@
 <template>
   <div
     id="app"
-    class="h-screen"
-    :class="isCurrentColorDark ? 'text-white' : 'text-black'"
+    class="min-h-screen"
+    :class="isCurrentColorDark ? 'app-dark text-white' : 'app-light text-black'"
     :style="{
-      background: `linear-gradient(270deg, ${currentColor}, ${currentTintColor})`
+      background: `linear-gradient(315deg, ${currentColor}, ${currentTintColor})`
     }"
   >
     <TheNavbar />
@@ -26,7 +26,7 @@ export default {
     ...mapGetters(['currentColor', 'isCurrentColorDark']),
     currentTintColor() {
       const { h, s, l } = hexToHsl(this.currentColor)
-      const extraLight = 20
+      const extraLight = 10
 
       return `hsl(${h * 360}, ${s * 100}%, ${l * 100 + extraLight}%)`
     }
@@ -51,3 +51,88 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss">
+.btn {
+  transition: background-color 0.2s ease;
+  @apply font-bold py-1 px-2 rounded border;
+}
+
+.app-dark .btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  @apply border-white;
+}
+
+.app-dark .btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.app-dark .btn:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.app-light .btn {
+  background-color: rgba(0, 0, 0, 0.1);
+  @apply border-black;
+}
+
+.app-light .btn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.app-light .btn:focus {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* VueFormulate styles */
+.formulate-input {
+  @apply mb-3;
+}
+
+.formulate-input-element {
+  @apply relative;
+}
+
+.formulate-input-element input,
+.formulate-input-element select {
+  transition: background-color 0.2s ease;
+  @apply w-full px-2 py-1 border rounded-sm;
+}
+
+.app-dark .formulate-input-element input,
+.app-dark .formulate-input-element select {
+  background-color: rgba(255, 255, 255, 0.1);
+  @apply border-white;
+}
+
+.app-dark .formulate-input-element input:focus,
+.app-dark .formulate-input-element select:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.app-light .formulate-input-element input,
+.app-light .formulate-input-element select {
+  background-color: rgba(0, 0, 0, 0.1);
+  @apply border-black;
+}
+
+.app-light .formulate-input-element input:focus,
+.app-light .formulate-input-element select:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.formulate-input-dropdown {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  @apply bg-black;
+}
+
+.formulate-input-dropdown li {
+  @apply px-2 py-1;
+}
+
+.formulate-input-dropdown li[data-is-selected='true'] {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+</style>

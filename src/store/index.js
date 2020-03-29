@@ -41,13 +41,16 @@ export default new Vuex.Store({
     resetDate({ commit }) {
       commit('RESET_DATE')
     },
-    addSchedule({ commit }, { schedule }) {
+    addSchedule({ commit, dispatch }, { schedule }) {
+      dispatch('resetDate')
       commit('ADD_SCHEDULE', { schedule })
     },
-    updateSchedule({ commit }, { index, schedule }) {
+    updateSchedule({ commit, dispatch }, { index, schedule }) {
+      dispatch('resetDate')
       commit('UPDATE_SCHEDULE', { index, schedule })
     },
-    removeSchedule({ commit }, { index }) {
+    removeSchedule({ commit, dispatch }, { index }) {
+      dispatch('resetDate')
       commit('REMOVE_SCHEDULE', { index })
     }
   },

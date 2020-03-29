@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pb-1">
     <ScheduleList />
   </div>
 </template>
