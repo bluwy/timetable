@@ -4,7 +4,7 @@
     :class="isCurrentColorDark ? 'item-bg--white' : 'item-bg--black'"
   >
     <div class="text-sm font-bold opacity-75">
-      {{ startTime }} - {{ endTime }}
+      {{ schedule.startTime }} - {{ schedule.endTime }}
     </div>
     <div class="text-lg font-bold">{{ schedule.name }}</div>
   </div>
@@ -12,7 +12,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { formatTime } from '@/util'
 
 export default {
   name: 'ScheduleListItem',
@@ -23,17 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isCurrentColorDark']),
-    startTime() {
-      return this.schedule
-        ? formatTime(this.schedule.startHour, this.schedule.startMinute)
-        : ''
-    },
-    endTime() {
-      return this.schedule
-        ? formatTime(this.schedule.endHour, this.schedule.endMinute)
-        : ''
-    }
+    ...mapGetters(['isCurrentColorDark'])
   }
 }
 </script>

@@ -14,11 +14,11 @@
         <div class="flex">
           <div class="mr-12">
             <div class="text-xs opacity-75 text-center">FROM</div>
-            <div class="text-2xl">{{ startTime }}</div>
+            <div class="text-2xl">{{ currentSchedule.startTime }}</div>
           </div>
           <div>
             <div class="text-xs opacity-75 text-center">TO</div>
-            <div class="text-2xl">{{ endTime }}</div>
+            <div class="text-2xl">{{ currentSchedule.endTime }}</div>
           </div>
         </div>
       </div>
@@ -28,28 +28,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { formatTime } from '@/util'
 
 export default {
   name: 'CurrentSchedule',
   computed: {
-    ...mapGetters(['currentSchedule']),
-    startTime() {
-      return this.currentSchedule
-        ? formatTime(
-            this.currentSchedule.startHour,
-            this.currentSchedule.startMinute
-          )
-        : ''
-    },
-    endTime() {
-      return this.currentSchedule
-        ? formatTime(
-            this.currentSchedule.endHour,
-            this.currentSchedule.endMinute
-          )
-        : ''
-    }
+    ...mapGetters(['currentSchedule'])
   }
 }
 </script>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { isColorDark } from '@/util'
+import { isColorDark, parseTime } from '@/util'
 
 /**
  * @typedef {object} Schedule
@@ -9,10 +9,8 @@ import { isColorDark } from '@/util'
  * @property {string} location
  * @property {string} color
  * @property {number} day
- * @property {number} startHour
- * @property {number} startMinute
- * @property {number} endHour
- * @property {number} endMinute
+ * @property {string} startTime
+ * @property {string} endTime
  */
 
 Vue.use(Vuex)
@@ -81,10 +79,15 @@ export default new Vuex.Store({
           return false
         }
 
+        const { hour: startHour, minute: startMinute } = parseTime(
+          schedule.startTime
+        )
+        const { hour: endHour, minute: endMinute } = parseTime(schedule.endTime)
+
         return (
-          (hour > schedule.startHour && hour < schedule.endHour) ||
-          (hour === schedule.startHour && minute > schedule.startMinute) ||
-          (hour === schedule.endHour && minute < schedule.endMinute)
+          (hour > startHour && hour < endHour) ||
+          (hour === startHour && minute > startMinute) ||
+          (hour === endHour && minute < endMinute)
         )
       })
     },
@@ -95,18 +98,31 @@ export default new Vuex.Store({
           return false
         }
 
-        return hour <= schedule.startHour && minute < schedule.startMinute
+        const { hour: startHour, minute: startMinute } = parseTime(
+          schedule.startTime
+        )
+
+        return hour <= startHour && minute < startMinute
       })
     },
     /** Sorts schedules ascendingly by day and startHour */
     sortedSchedules(state) {
       return state.schedules.sort((a, b) => {
         // Merge hour and minute to 24-hour format
-        const startTimeA = a.startHour * 100 + a.startMinute
-        const startTimeB = b.startHour * 100 + b.startMinute
+        const startTimeA = parseInt(a.startTime.replace(':', ''), 10)
+        const startTimeB = parseInt(b.startTime.replace(':', ''), 10)
 
         return a.day - b.day || startTimeA - startTimeB
       })
+    },
+    teachers(state) {
+      return [...new Set(state.schedules.map(v => v.teacher).filter(Boolean))]
+    },
+    locations(state) {
+      return [...new Set(state.schedules.map(v => v.location).filter(Boolean))]
+    },
+    colors(state) {
+      return [...new Set(state.schedules.map(v => v.color).filter(Boolean))]
     }
   }
 })

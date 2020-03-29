@@ -58,6 +58,15 @@ export function hexToRgb(hex) {
   return { r, g, b }
 }
 
+export function parseTime(time) {
+  const [hour, minute] = time.split(':', 2)
+
+  return {
+    hour: parseInt(hour || 0, 10),
+    minute: parseInt(minute || 0, 10)
+  }
+}
+
 export function formatTime(hour, minute) {
   const formatHour = hour.toString().padStart('2', '0')
   const formatMinute = minute.toString().padStart('2', '0')

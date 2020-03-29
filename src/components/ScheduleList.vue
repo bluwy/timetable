@@ -52,13 +52,7 @@ export default {
   },
   methods: {
     getScheduleKey(schedule) {
-      return (
-        schedule.name +
-        schedule.startHour +
-        schedule.startMinute +
-        schedule.endHour +
-        schedule.endMinute
-      )
+      return schedule.name + schedule.startTime + schedule.endTime
     }
   }
 }
