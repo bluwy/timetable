@@ -4,6 +4,7 @@ import { isColorDark, parseTime } from '@/util'
 
 /**
  * @typedef {object} Schedule
+ * @property {string} id
  * @property {string} name
  * @property {string} teacher
  * @property {string} location
@@ -28,12 +29,15 @@ export default new Vuex.Store({
       state.currentDate = new Date()
     },
     ADD_SCHEDULE(state, { schedule }) {
+      schedule.id = Date.now().toString()
       state.schedules.push(schedule)
     },
-    UPDATE_SCHEDULE(state, { index, schedule }) {
+    UPDATE_SCHEDULE(state, { id, schedule }) {
+      const index = state.schedules.find(v => v.id === id)
       state.schedules.splice(index, 1, schedule)
     },
-    REMOVE_SCHEDULE(state, { index }) {
+    REMOVE_SCHEDULE(state, { id }) {
+      const index = state.schedules.find(v => v.id === id)
       state.schedules.splice(index, 1)
     }
   },
@@ -45,13 +49,13 @@ export default new Vuex.Store({
       dispatch('resetDate')
       commit('ADD_SCHEDULE', { schedule })
     },
-    updateSchedule({ commit, dispatch }, { index, schedule }) {
+    updateSchedule({ commit, dispatch }, { id, schedule }) {
       dispatch('resetDate')
-      commit('UPDATE_SCHEDULE', { index, schedule })
+      commit('UPDATE_SCHEDULE', { id, schedule })
     },
-    removeSchedule({ commit, dispatch }, { index }) {
+    removeSchedule({ commit, dispatch }, { id }) {
       dispatch('resetDate')
-      commit('REMOVE_SCHEDULE', { index })
+      commit('REMOVE_SCHEDULE', { id })
     }
   },
   getters: {

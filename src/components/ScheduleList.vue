@@ -5,7 +5,7 @@
       <div class="flex flex-wrap -mx-2">
         <div
           v-for="schedule in group.schedules"
-          :key="getScheduleKey(schedule)"
+          :key="schedule.id"
           class="px-2 mb-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
         >
           <ScheduleListItem class="h-full" :schedule="schedule" />
@@ -48,11 +48,6 @@ export default {
           return acc
         }, defaultGroupSchedule())
         .filter(v => v.schedules.length)
-    }
-  },
-  methods: {
-    getScheduleKey(schedule) {
-      return schedule.name + schedule.startTime + schedule.endTime
     }
   }
 }
