@@ -33,11 +33,11 @@ export default new Vuex.Store({
       state.schedules.push(schedule)
     },
     UPDATE_SCHEDULE(state, { id, schedule }) {
-      const index = state.schedules.find(v => v.id === id)
+      const index = state.schedules.findIndex(v => v.id === id)
       state.schedules.splice(index, 1, schedule)
     },
     REMOVE_SCHEDULE(state, { id }) {
-      const index = state.schedules.find(v => v.id === id)
+      const index = state.schedules.findIndex(v => v.id === id)
       state.schedules.splice(index, 1)
     }
   },
@@ -46,16 +46,16 @@ export default new Vuex.Store({
       commit('RESET_DATE')
     },
     addSchedule({ commit, dispatch }, { schedule }) {
-      dispatch('resetDate')
       commit('ADD_SCHEDULE', { schedule })
+      dispatch('resetDate')
     },
     updateSchedule({ commit, dispatch }, { id, schedule }) {
-      dispatch('resetDate')
       commit('UPDATE_SCHEDULE', { id, schedule })
+      dispatch('resetDate')
     },
     removeSchedule({ commit, dispatch }, { id }) {
-      dispatch('resetDate')
       commit('REMOVE_SCHEDULE', { id })
+      dispatch('resetDate')
     }
   },
   getters: {
@@ -93,7 +93,7 @@ export default new Vuex.Store({
 
         return (
           (hour > startHour && hour < endHour) ||
-          (hour === startHour && minute > startMinute) ||
+          (hour === startHour && minute >= startMinute) ||
           (hour === endHour && minute < endMinute)
         )
       })
@@ -109,7 +109,7 @@ export default new Vuex.Store({
           schedule.startTime
         )
 
-        return hour <= startHour && minute < startMinute
+        return hour < startHour || (hour === startHour && minute < startMinute)
       })
     },
     /** Sorts schedules ascendingly by day and startHour */

@@ -15,7 +15,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import TheNavbar from '@/components/TheNavbar.vue'
-import { hexToHsl } from '@/util'
+import { hexToHsl, parseTime } from '@/util'
 
 export default {
   name: 'App',
@@ -23,12 +23,19 @@ export default {
     TheNavbar
   },
   computed: {
-    ...mapGetters(['currentColor', 'isCurrentColorDark']),
+    ...mapGetters(['currentColor', 'isCurrentColorDark', 'nextSchedule']),
     currentTintColor() {
       const { h, s, l } = hexToHsl(this.currentColor)
       const extraLight = 10
 
       return `hsl(${h * 360}, ${s * 100}%, ${l * 100 + extraLight}%)`
+    },
+    nextParsedStartTime() {
+      if (!this.nextSchedule) {
+        return undefined
+      }
+
+      return parseTime(this.nextSchedule.startTime)
     }
   },
   mounted() {
@@ -38,9 +45,9 @@ export default {
     // time before re-assigning.
     setInterval(() => {
       if (
-        this.nextSchedule &&
-        new Date().getHours() >= this.nextSchedule.startHour &&
-        new Date().getMinutes() >= this.nextSchedule.startMinute
+        this.nextParsedStartTime &&
+        new Date().getHours() >= this.nextParsedStartTime.hour &&
+        new Date().getMinutes() >= this.nextParsedStartTime.minute
       ) {
         this.resetDate()
       }
@@ -53,6 +60,10 @@ export default {
 </script>
 
 <style lang="postcss">
+#app {
+  transition: background 2s ease;
+}
+
 .btn {
   transition: background-color 0.2s ease;
   @apply font-bold py-1 px-2 rounded border;
