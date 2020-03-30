@@ -23,12 +23,24 @@ export default {
     TheNavbar
   },
   computed: {
-    ...mapGetters(['currentColor', 'isCurrentColorDark', 'nextSchedule']),
+    ...mapGetters([
+      'currentColor',
+      'isCurrentColorDark',
+      'currentSchedule',
+      'nextSchedule'
+    ]),
     currentTintColor() {
       const { h, s, l } = hexToHsl(this.currentColor)
       const extraLight = 10
 
       return `hsl(${h * 360}, ${s * 100}%, ${l * 100 + extraLight}%)`
+    },
+    currentParseEndTime() {
+      if (!this.currentSchedule) {
+        return undefined
+      }
+
+      return parseTime(this.currentSchedule.endTime)
     },
     nextParsedStartTime() {
       if (!this.nextSchedule) {
@@ -44,11 +56,20 @@ export default {
     // So we continuously check if current time passes the next schedule's start
     // time before re-assigning.
     setInterval(() => {
-      if (
+      const nowHour = new Date().getHours()
+      const nowMinute = new Date().getMinutes()
+
+      const passedCurrentEndTime =
+        this.currentParseEndTime &&
+        nowHour >= this.currentParseEndTime.hour &&
+        nowMinute >= this.currentParseEndTime.minute
+
+      const passedNextStartTime =
         this.nextParsedStartTime &&
-        new Date().getHours() >= this.nextParsedStartTime.hour &&
-        new Date().getMinutes() >= this.nextParsedStartTime.minute
-      ) {
+        nowHour >= this.nextParsedStartTime.hour &&
+        nowMinute >= this.nextParsedStartTime.minute
+
+      if (passedCurrentEndTime || passedNextStartTime) {
         this.resetDate()
       }
     }, 1000)
