@@ -2,9 +2,6 @@
   <div :class="{ 'w-full fixed': $route.name === 'Home' }">
     <div class="container flex flex-row-reverse items-center">
       <template v-if="$route.name === 'Home'">
-        <router-link class="p-3" to="/settings">
-          <fa-icon :icon="['fas', 'cog']" />
-        </router-link>
         <router-link class="p-3" to="/schedules">
           <fa-icon :icon="['fas', 'calendar-alt']" />
         </router-link>
