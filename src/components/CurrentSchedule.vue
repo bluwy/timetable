@@ -1,9 +1,13 @@
 <template>
   <div v-if="currentSchedule">
     <div class="flex font-bold opacity-75">
-      <div class="flex-grow">{{ currentSchedule.teacher }}</div>
+      <div class="flex-grow">
+        <fa-icon class="mr-1 opacity-50" :icon="['fas', 'user']" />
+        {{ currentSchedule.teacher }}
+      </div>
       <div class="flex-shrink">
         {{ currentSchedule.location }}
+        <fa-icon class="ml-1 opacity-50" :icon="['fas', 'map-marker-alt']" />
       </div>
     </div>
     <div
