@@ -8,7 +8,7 @@
     >
       <div class="flex">
         <div class="flex-grow text-xl">
-          New Schedule
+          {{ header }}
         </div>
         <div class="flex-shrink">
           <button @click="$emit('close')">
@@ -93,8 +93,12 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'CreateScheduleDialog',
+  name: 'ScheduleDialog',
   props: {
+    header: {
+      type: String,
+      default: 'Schedule'
+    },
     baseForm: {
       type: Object,
       default: () => ({
@@ -108,9 +112,6 @@ export default {
       })
     }
   },
-  data: () => ({
-    newForm: {}
-  }),
   computed: {
     ...mapGetters(['currentColor', 'teachers', 'locations', 'colors']),
     allTeachers() {
@@ -128,15 +129,22 @@ export default {
         'Thursday',
         'Friday',
         'Saturday'
-      ].reduce((obj, v, i) => ({ ...obj, [i]: v }), {})
+      ].map((v, i) => ({ label: v, value: i }))
     }
   },
   methods: {
-    ...mapActions(['addSchedule']),
+    ...mapActions(['addSchedule', 'updateSchedule']),
     submit(data) {
-      data.day = parseInt(data.day)
+      // Vue-formulate sometimes strangely parses day to string
+      data.day = parseInt(data.day, 10)
 
-      this.addSchedule({ schedule: data })
+      // Treat as update if form has id
+      if (data.id) {
+        this.updateSchedule({ id: data.id, schedule: data })
+      } else {
+        this.addSchedule({ schedule: data })
+      }
+
       this.$emit('close')
     }
   }

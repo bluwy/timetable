@@ -19,6 +19,7 @@
         <div>
           <ScheduleDialog
             v-if="showScheduleDialog"
+            header="New Schedule"
             @close="showScheduleDialog = false"
           />
           <button class="btn" @click.stop="showScheduleDialog = true">

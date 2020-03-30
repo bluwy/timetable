@@ -8,7 +8,9 @@
       type="text"
       v-bind="context.attributes"
       autocomplete="no"
-      @keydown.enter.prevent="context.model = selection.label"
+      @keydown.enter.prevent="
+        context.model = selection ? selection.label : context.model
+      "
       @keydown.down.prevent="increment()"
       @keydown.up.prevent="decrement()"
       @blur="context.blurHandler"
