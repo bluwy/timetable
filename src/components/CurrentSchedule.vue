@@ -1,12 +1,14 @@
 <template>
   <div v-if="currentSchedule">
-    <div class="flex text-sm opacity-75">
+    <div class="flex font-bold opacity-75">
       <div class="flex-grow">{{ currentSchedule.teacher }}</div>
       <div class="flex-shrink">
         {{ currentSchedule.location }}
       </div>
     </div>
-    <div class="text-5xl text-center leading-none my-5">
+    <div
+      class="text-4xl font-bold sm:text-5xl sm:font-normal text-center leading-none mt-3 mb-5"
+    >
       {{ currentSchedule.name }}
     </div>
     <div class="text-center">

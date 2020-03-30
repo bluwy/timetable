@@ -136,7 +136,7 @@ export default {
   position: absolute;
   z-index: 1;
   width: 100%;
-  @apply bg-black;
+  @apply text-white bg-black;
 }
 
 .formulate-input-dropdown li {
