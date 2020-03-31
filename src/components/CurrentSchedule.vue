@@ -1,11 +1,11 @@
 <template>
   <div v-if="currentSchedule">
     <div class="flex font-bold opacity-75">
-      <div class="flex-grow">
+      <div v-if="currentSchedule.teacher" class="flex-shrink">
         <fa-icon class="mr-1 opacity-50" :icon="['fas', 'user']" />
         {{ currentSchedule.teacher }}
       </div>
-      <div class="flex-shrink">
+      <div v-if="currentSchedule.location" class="flex-grow text-right">
         {{ currentSchedule.location }}
         <fa-icon class="ml-1 opacity-50" :icon="['fas', 'map-marker-alt']" />
       </div>
