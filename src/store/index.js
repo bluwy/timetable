@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 import { isColorDark, parseTime } from '@/util'
 
 /**
@@ -16,7 +17,13 @@ import { isColorDark, parseTime } from '@/util'
 
 Vue.use(Vuex)
 
+const vuexLocal = new VuexPersistence({
+  storage: localStorage,
+  reducer: state => ({ schedules: state.schedules })
+})
+
 export default new Vuex.Store({
+  plugins: [vuexLocal.plugin],
   state: {
     currentDate: new Date(),
     defaultColor: '#123456',
