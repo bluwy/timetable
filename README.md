@@ -1,11 +1,12 @@
-<div style="text-align: center;">
+<p align="center">
+  <img src="./public/img/icons/icon-96x96.png" alt="logo">
+</p>
 
-  ![logo](./public/img/icons/icon-96x96.png)
+<h1 align="center">Timetable</h1>
 
-  # Timetable
+<p align="center">A timetable for personal use</p>
 
-  A timetable for personal use
-</div>
+[**Visit website**](https://timetable.bjornlu.com)
 
 ## Features
 
