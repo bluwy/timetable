@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://timetable-bjornlu.netlify.com/*"
+  to = "https://timetable.bjornlu.com/:splat"
+  status = 301
+  force = true
