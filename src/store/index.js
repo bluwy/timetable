@@ -26,7 +26,7 @@ export default new Vuex.Store({
   plugins: [vuexLocal.plugin],
   state: {
     currentDate: new Date(),
-    defaultColor: '#123456',
+    defaultColor: '#0F3974',
     /** @type {Schedule[]} */
     schedules: []
   },

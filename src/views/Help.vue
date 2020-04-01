@@ -1,5 +1,5 @@
 <template>
-  <article class="container">
+  <article class="container pb-1">
     <h1 class="text-2xl font-bold sm:text-3xl sm:font-normal">
       Timetable for personal use
     </h1>
