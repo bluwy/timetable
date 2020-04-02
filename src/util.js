@@ -1,3 +1,13 @@
+export const weekdays = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
+
 // https://gist.github.com/xenozauros/f6e185c8de2a04cdfecf
 export function hexToHsl(hex) {
   let { r, g, b } = hexToRgb(hex)

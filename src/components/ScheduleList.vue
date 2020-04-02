@@ -18,17 +18,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import ScheduleListItem from '@/components/ScheduleListItem.vue'
+import { weekdays } from '@/util'
 
 function defaultGroupSchedule() {
-  return [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ].map(v => ({
+  return weekdays.map(v => ({
     groupName: v,
     schedules: []
   }))

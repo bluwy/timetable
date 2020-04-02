@@ -91,6 +91,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { weekdays } from '@/util'
 
 export default {
   name: 'ScheduleDialog',
@@ -115,15 +116,7 @@ export default {
   computed: {
     ...mapGetters(['currentColor', 'teachers', 'locations', 'colors']),
     scheduleDays() {
-      return [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ].map((v, i) => ({ label: v, value: i }))
+      return weekdays.map((v, i) => ({ label: v, value: i }))
     }
   },
   methods: {
