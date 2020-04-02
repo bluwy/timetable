@@ -41,7 +41,7 @@
               type="autocomplete"
               name="teacher"
               label="Teacher (optional)"
-              :choices="allTeachers"
+              :choices="teachers"
             />
           </div>
           <div class="w-1/2 px-2">
@@ -49,7 +49,7 @@
               type="autocomplete"
               name="location"
               label="Location (optional)"
-              :choices="allLocations"
+              :choices="locations"
             />
           </div>
         </div>
@@ -114,12 +114,6 @@ export default {
   },
   computed: {
     ...mapGetters(['currentColor', 'teachers', 'locations', 'colors']),
-    allTeachers() {
-      return this.teachers.map(v => ({ label: v, value: v }))
-    },
-    allLocations() {
-      return this.locations.map(v => ({ label: v, value: v }))
-    },
     scheduleDays() {
       return [
         'Sunday',

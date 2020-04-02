@@ -5,27 +5,15 @@
   >
     <input
       v-model="context.model"
-      type="text"
       v-bind="context.attributes"
+      type="text"
       autocomplete="no"
-      @keydown.enter.prevent="
-        context.model = selection ? selection.label : context.model
-      "
-      @keydown.down.prevent="increment()"
-      @keydown.up.prevent="decrement()"
+      :list="listId"
       @blur="context.blurHandler"
     />
-    <ul v-show="filteredOptions.length" class="formulate-input-dropdown">
-      <li
-        v-for="(option, index) in filteredOptions"
-        :key="option.value"
-        :data-is-selected="selection && selection.value === option.value"
-        @mouseenter="selectedIndex = index"
-        @click="context.model = selection.label"
-      >
-        {{ option.label }}
-      </li>
-    </ul>
+    <datalist :id="listId">
+      <option v-for="c in choices" :key="c" :value="c" />
+    </datalist>
   </div>
 </template>
 
@@ -38,52 +26,13 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    selectedIndex: 0
-  }),
   computed: {
-    model() {
-      return this.context.model
+    listId() {
+      return 'list_' + this.context.id
     },
     choices() {
       // Previously `this.context.options` but it was hella buggy
       return this.context.attributes.choices
-    },
-    filteredOptions() {
-      if (this.context.model && Array.isArray(this.choices)) {
-        const model = this.context.model.toLowerCase()
-
-        return this.choices.filter(option => {
-          const label = option.label.toLowerCase()
-          return label !== model && label.includes(model)
-        })
-      }
-
-      return []
-    },
-    selection() {
-      return this.filteredOptions[this.selectedIndex]
-    }
-  },
-  watch: {
-    model() {
-      this.selectedIndex = 0
-    }
-  },
-  methods: {
-    increment() {
-      if (this.selectedIndex + 1 < this.filteredOptions.length) {
-        this.selectedIndex++
-      } else {
-        this.selectedIndex = 0
-      }
-    },
-    decrement() {
-      if (this.selectedIndex - 1 >= 0) {
-        this.selectedIndex--
-      } else {
-        this.selectedIndex = this.filteredOptions.length - 1
-      }
     }
   }
 }

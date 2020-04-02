@@ -16,25 +16,15 @@
       <div class="text-input-wrapper flex-grow relative">
         <input
           v-model="context.model"
-          type="text"
           v-bind="context.attributes"
+          type="text"
           autocomplete="no"
-          @keydown.enter.prevent="context.model = selection || context.model"
-          @keydown.down.prevent="increment()"
-          @keydown.up.prevent="decrement()"
+          :list="listId"
           @blur="context.blurHandler"
         />
-        <ul v-show="colorOptions.length" class="formulate-input-dropdown">
-          <li
-            v-for="(option, index) in colorOptions"
-            :key="option"
-            class="color-option inline-block m-1 rounded-full border border-white"
-            :style="{ 'background-color': option }"
-            :data-is-selected="selection === option"
-            @mouseenter="selectedIndex = index"
-            @click="context.model = selection"
-          />
-        </ul>
+        <datalist :id="listId">
+          <option v-for="c in choices" :key="c" :value="c" />
+        </datalist>
       </div>
     </div>
   </div>
@@ -49,41 +39,13 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    selectedIndex: 0
-  }),
   computed: {
-    model() {
-      return this.context.model
+    listId() {
+      return 'list_' + this.context.id
     },
-    colorOptions() {
-      // Return empty for now, cause I don't want to deal with dropdown auto-hide
-      return []
-      // return this.context.attributes.choices || []
-    },
-    selection() {
-      return this.colorOptions[this.selectedIndex]
-    }
-  },
-  watch: {
-    model() {
-      this.selectedIndex = 0
-    }
-  },
-  methods: {
-    increment() {
-      if (this.selectedIndex + 1 < this.colorOptions.length) {
-        this.selectedIndex++
-      } else {
-        this.selectedIndex = 0
-      }
-    },
-    decrement() {
-      if (this.selectedIndex - 1 >= 0) {
-        this.selectedIndex--
-      } else {
-        this.selectedIndex = this.colorOptions.length - 1
-      }
+    choices() {
+      // Previously `this.context.options` but it was hella buggy
+      return this.context.attributes.choices
     }
   }
 }
