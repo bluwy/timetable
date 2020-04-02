@@ -45,11 +45,15 @@ export default {
     model() {
       return this.context.model
     },
+    choices() {
+      // Previously `this.context.options` but it was hella buggy
+      return this.context.attributes.choices
+    },
     filteredOptions() {
-      if (this.context.model && Array.isArray(this.context.options)) {
+      if (this.context.model && Array.isArray(this.choices)) {
         const model = this.context.model.toLowerCase()
 
-        return this.context.options.filter(option => {
+        return this.choices.filter(option => {
           const label = option.label.toLowerCase()
           return label !== model && label.includes(model)
         })

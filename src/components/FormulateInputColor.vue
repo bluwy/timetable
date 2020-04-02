@@ -59,7 +59,7 @@ export default {
     colorOptions() {
       // Return empty for now, cause I don't want to deal with dropdown auto-hide
       return []
-      // return this.context.options || []
+      // return this.context.attributes.choices || []
     },
     selection() {
       return this.colorOptions[this.selectedIndex]

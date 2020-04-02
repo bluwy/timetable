@@ -31,7 +31,7 @@
               type="color-ex"
               name="color"
               label="Color"
-              :options="colors"
+              :choices="colors"
             />
           </div>
         </div>
@@ -41,7 +41,7 @@
               type="autocomplete"
               name="teacher"
               label="Teacher (optional)"
-              :options="allTeachers"
+              :choices="allTeachers"
             />
           </div>
           <div class="w-1/2 px-2">
@@ -49,7 +49,7 @@
               type="autocomplete"
               name="location"
               label="Location (optional)"
-              :options="allLocations"
+              :choices="allLocations"
             />
           </div>
         </div>
