@@ -19,8 +19,14 @@ if (process.env.NODE_ENV === 'production') {
     updatefound() {
       console.log('New content is downloading.')
     },
-    updated() {
+    updated(registration) {
       console.log('New content is available; please refresh.')
+
+      if (window.confirm('New content available. Refresh app?')) {
+        const worker = registration.waiting
+        worker.postMessage({ action: 'SKIP_WAITING' })
+        window.location.reload()
+      }
     },
     offline() {
       console.log(
