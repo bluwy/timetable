@@ -21,11 +21,14 @@
 - [ ] Switch to [VeeValidate](https://logaretm.github.io/vee-validate/). Now, [VueFormulate](https://vueformulate.com/) provides components which can't be resolved during compile time, meaning it loads all of its component and is unable to be tree-shaken.
 - [ ] Better inputs, especially autocomplete inputs.
 - [ ] Better PWA look on mobile devices.
+- [ ] Better favicon generation workflow.
+- [ ] Add cross-day time-calculation support. Time is currenty saved as `hh:mm` format.
+- [ ] Additional settings for further customizations, e.g. default background color, omit certain input options, etc...
 
 ## Development
 
 ```bash
-# Start dev serverI
+# Start dev server
 $ yarn serve
 
 # Build for production
